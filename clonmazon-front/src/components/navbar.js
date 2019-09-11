@@ -1,37 +1,61 @@
 import React from "react";
-import {Navbar, NavItem, Icon} from "react-materialize";
+import {Navbar, NavItem, Icon, TextInput, Badge} from "react-materialize";
 import LoginForm from "./modals/login";
-
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { getUsersShoppingCarts } from "../actions/index";
 
 class NavigationBar extends React.Component{
     constructor(){
         super();
         this.state = {
-            user: {}
+            search: false
         }
+        this.enableSearch = this.enableSearch.bind(this);
+        this.populateShoppingUser = this.populateShoppingUser.bind(this);
     }
+    enableSearch(){
+        this.setState({search:!this.state.search});
+    }
+
+    
+
+    populateShoppingUser(){
+        this.props.getUsersShoppingCarts({_id:"5d71b385f59cad04d80db0f5"});
+    }
+
     render(){
-        const { user } = this.state;
-        const login = (<NavItem href="#">
-                            {user.fullname?user.fullname:'LogIn'}
+        const { user } = this.props.user;
+       
+        const login = (<NavItem href="#" onClick={this.populateShoppingUser}>
+                            {user?user.fullname:'LogIn'}
                             <Icon left>
                             account_box
                             </Icon>
                         </NavItem>);
         return(
             <div className="section">
-                <Navbar brand={<a href="/">CLONMAZON</a>} alignLinks="right">
-                    <NavItem href="get-started.html">
+                <Navbar fixed={true} search={this.state.search} brand={<a href="/">CLONMAZON</a>} alignLinks="right">
+                    
+                    <TextInput></TextInput>
+                    <NavItem href="#" onClick={this.enableSearch}>
                         <Icon>
                         search
                         </Icon>
                     </NavItem>                    
-                    <NavItem href="get-started.html">
-                        <Icon>
-                        shopping_cart
-                        </Icon>
+                    <NavItem href="#">
+                        <div className="count_item">
+                            <Icon>
+                            shopping_cart
+                            </Icon>
+                            <Badge newIcon>
+                                {!this.props.shopping.shoppingCartSession.products?0:this.props.shopping.shoppingCartSession.products.length}
+                            </Badge>
+                        </div>
+                        
+
                     </NavItem>  
-                    <LoginForm trigger = {login}></LoginForm>       
+                    {user?login:<LoginForm trigger = {login}></LoginForm>}      
                 </Navbar>
                 
             </div>
@@ -39,4 +63,12 @@ class NavigationBar extends React.Component{
     }
 }
 
-export default NavigationBar;
+function mapStateToProps(state) {
+    return {
+      user: state.user.user,
+      shopping: state.shoppingcart
+    };
+}
+
+
+export default withRouter(connect(mapStateToProps,{getUsersShoppingCarts})(NavigationBar));

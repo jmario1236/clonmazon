@@ -1,10 +1,17 @@
-import {GET_PRODUCTS, } from "../cons/actions-type"
-import { GET_REMOTE_PRODUCT } from "../cons/actions-type";
+import { GET_REMOTE_PRODUCT, LOGIN_REMOTE_USER, ADD_PRODUCT_TO_CART_REMOTE, GET_CART_USER_REMOTE } from "../cons/actions-type";
 
-export function getProduct(payload){
-    return {type:GET_PRODUCTS, payload};
+export function loginRemoteUser(payload){
+    return {type:LOGIN_REMOTE_USER, payload};
 };
 
-export function getRemoteProducts(){
-    return {type: GET_REMOTE_PRODUCT};
+export function getRemoteProducts(payload){
+    return {type: GET_REMOTE_PRODUCT, payload};
+}
+
+export function addProductToShoppingCartRemote(payload){
+    return {type: ADD_PRODUCT_TO_CART_REMOTE, payload};
+}
+
+export function getUsersShoppingCarts(payload){
+    return {type: GET_CART_USER_REMOTE, payload};
 }

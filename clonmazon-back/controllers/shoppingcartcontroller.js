@@ -28,7 +28,8 @@ const updateShoppingCart = async(req,res) => {
     try{
         let cartreq = {
             _id:req.body._id,
-            products:req.body.products
+            products:req.body.products,
+            user: req.body.user
         }
         let cart = await shoppingcartService.updateCart(cartreq);
         res.status(200).send(cart);  

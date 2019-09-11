@@ -2,13 +2,12 @@ import React from "react";
 import {Row,Col,Preloader} from "react-materialize";
 import { connect } from "react-redux";
 import { getRemoteProducts } from "../actions/index";
-
 import ProductItem from "./productitem";
 
 class ProductList extends React.Component{
     
     componentDidMount(){
-        this.props.getRemoteProducts();
+        this.props.getRemoteProducts({});
     }
 
 

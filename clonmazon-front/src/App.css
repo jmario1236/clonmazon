@@ -7,6 +7,26 @@
   margin-left: 15px!important;
 }
 
+.text-justify{
+  text-align: justify;
+}
+
+.count_item{
+  position: relative;
+}
+
+.count_item i {
+  float: left;
+}
+
+.text-right{
+  text-align: right;
+}
+
+.details-button{
+  display: grid;
+}
+
 .inputs-box{
   width: 100%
 }

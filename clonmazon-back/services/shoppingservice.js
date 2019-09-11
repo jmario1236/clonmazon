@@ -16,10 +16,14 @@ const saveShoppingCart = async (cart) =>{
 
 const updateCart = async(cart_p) => {
     try{
-        let cart = await ShoppingCart.findOne({_id:cart._id});
-        cart.products = cart_p.products;
-        modify_cart = cart.save()
-        return modify_cart;
+        let cart = await ShoppingCart.findOne({_id:cart_p._id});
+        if(!cart){
+            cart = saveShoppingCart(cart_p);
+        }else{
+            cart.products = cart_p.products;
+            cart = await cart.save()
+        }       
+        return cart;
     }catch(err){
         throw err;
     } 

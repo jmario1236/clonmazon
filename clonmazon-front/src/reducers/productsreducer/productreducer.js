@@ -10,7 +10,7 @@ const rootProductReducer = (state=initialState, action) => {
         case GET_PRODUCTS_START:
             return {...state, loading:true}
         case GET_PRODUCTS_SUCCESS:
-            return {...state, products:  state.products.concat(action.payload), loading:false}
+            return {...state, products:  [].concat(action.payload), loading:false}
         case GET_PRODUCTS_ERROR:
             return {...state, loading:false, error:action.payload.error}
         default:

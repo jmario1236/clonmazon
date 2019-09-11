@@ -21,7 +21,9 @@ const getProduct = async(req,res) => {
     try{
         let name = req.query.name;
         let categoriesq = req.query.categories;
+        let _id = req.query._id;
         let filter = {name:{},categories:[{}]};
+        if(_id){filter.name = {_id:_id}}
         if(name){filter.name = {name:new RegExp(req.query.name, "i")}}
         if(categoriesq){
             filter.categories = Array.isArray(categoriesq)?req.query.categories.map(function(id){

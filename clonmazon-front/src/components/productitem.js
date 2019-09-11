@@ -1,30 +1,28 @@
 import React from "react";
 import {Icon, Card, Button} from "react-materialize";
-
-import  ProductDetail  from "./modals/productdetail";
+import { withRouter, Link } from "react-router-dom";
 
 class ProductItem extends React.Component{
     render(){
-        const imagenProduct = (<img src={this.props.product.url_image} alt={this.props.product.name} width="200px"></img>)
-        const addToCartButton = (<Button>
-                                    Add to cart
-                                    <Icon left>
-                                        add_shopping_cart
-                                    </Icon>
-                                </Button>)
-        const showDetails = (<Button>
-                                Detail
-                                <Icon left>
-                                details
-                                </Icon>
-                            </Button>)
-        const modalDetail = (<ProductDetail trigger={showDetails} product={this.props.product}></ProductDetail>)
-        return(
-            <Card header={imagenProduct} title={this.props.product.name} actions={[addToCartButton,modalDetail]}>
-                <span>Price :</span><span>{this.props.product.price}</span>
-            </Card>
+        const routerToProduct = `/product/${this.props.product._id}`
+        const imagenProduct = ( <Link to={routerToProduct}><img src={this.props.product.url_image} alt={this.props.product.name} width="200px"></img></Link>)
+        const addToCartButton = (<Button icon={<Icon left> add_shopping_cart</Icon>}>
+                                    Add to cart                                    
+                                </Button>)   
+        const viewDetails = ( <Link to={routerToProduct}>
+                                    <Button icon={<Icon left>chevron_right</Icon>}>
+                                        Details                                
+                                    </Button>
+                                </Link>);        
+        return(          
+                <Card header={imagenProduct} title={this.props.product.name} actions={[addToCartButton, viewDetails]}>
+                     <Link to={routerToProduct}>
+                        <span>Price :</span><span>${this.props.product.price}</span>
+                    </Link>
+                </Card>
+            
         );
     }
 }
 
-export default ProductItem;
+export default withRouter(ProductItem);
