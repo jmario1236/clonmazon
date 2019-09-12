@@ -5,7 +5,7 @@ import { withRouter, Link } from "react-router-dom";
 class ProductItem extends React.Component{
     render(){
         const routerToProduct = `/product/${this.props.product._id}`
-        const imagenProduct = ( <Link to={routerToProduct}><img src={this.props.product.url_image} alt={this.props.product.name} width="200px"></img></Link>)
+        const imagenProduct = ( <Link to={routerToProduct}><img src={this.props.product.url_image} alt={this.props.product.name} height="250px"></img></Link>)
         const addToCartButton = (<Button icon={<Icon left> add_shopping_cart</Icon>}>
                                     Add to cart                                    
                                 </Button>)   

@@ -17,7 +17,7 @@ class ProductList extends React.Component{
         return(products.loading?<Preloader size="big" />:
             <Row>               
                {products.products.map(product =>  
-                (<Col s={3} key={product._id}>
+                (<Col s={12} m={6} l={3} xl={3} key={product._id}>
                     <ProductItem key={product._id} product={product}></ProductItem>                                                                
                  </Col>))}              
             </Row>
