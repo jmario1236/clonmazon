@@ -32,9 +32,16 @@ class ProductDetail extends React.Component{
         this.setState({quantity: parseInt(event.target.value)?parseInt(event.target.value):0});
     }
 
+    agregateProductQuantity(productsStore, newAdd){
+        if(!productsStore || productsStore.length === 0){
+            return [];
+        }
+        return productsStore.map(item => item.product._id === newAdd[0].product._id?{...item,quantity:item.quantity+=newAdd[0].quantity}:item);       
+    }
+
     AddToCartonClick(){
         if(!this.props.user.user.token){
-            window.M.toast({html:'Please login!'});
+            window.M.toast({html:'Please login or enjoy!'});
             return;
         }
         if(this.state.quantity === 0){
@@ -45,9 +52,11 @@ class ProductDetail extends React.Component{
         const productToAdd = [{quantity:this.state.quantity, product:{_id:this.props.products.products[0]._id}}];
         const cart = {  ...cartstore, 
                         user:this.props.user.user.user,
-                        products:  (!cartstore.products?[]:cartstore.products).concat(productToAdd)
+                        products: this.agregateProductQuantity(cartstore.products,productToAdd) //(!cartstore.products?[]:cartstore.products).concat(productToAdd)
                     };
+        console.log(cart);
         this.props.addProductToShoppingCartRemote(cart);
+        window.M.toast({html:'Product added!'});
     }
 
     render(){

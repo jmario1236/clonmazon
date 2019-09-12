@@ -2,7 +2,10 @@
 
 // constants for categories actions
 export const ADD_CATEGORY = "ADD_CATEGORY";
-export const GET_CATEGORY = "GET_CATEGORY";
+export const GET_CATEGORY_REMOTE = "GET_CATEGORY_REMOTE";
+export const GET_CATEGORY_START = "GET_CATEGORY_START";
+export const GET_CATEGORY_SUCCESS = "GET_CATEGORY_SUCCESS";
+export const GET_CATEGORY_ERROR = "GET_CATEGORY_ERROR";
 
 // constants for products action
 export const GET_PRODUCTS = "GET_PRODUCTS";

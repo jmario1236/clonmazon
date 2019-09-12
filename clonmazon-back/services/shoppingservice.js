@@ -22,12 +22,14 @@ const updateCart = async(cart_p) => {
         }else{
             cart.products = cart_p.products;
             cart = await cart.save()
-        }       
+        }        
+        cart = await cart.populate('products.product').execPopulate()
         return cart;
     }catch(err){
         throw err;
     } 
 }
+
 
 const getShoppingTemp = async (filter) =>{
     try{

@@ -1,4 +1,4 @@
-import { GET_REMOTE_PRODUCT, LOGIN_REMOTE_USER, ADD_PRODUCT_TO_CART_REMOTE, GET_CART_USER_REMOTE } from "../cons/actions-type";
+import { GET_REMOTE_PRODUCT, LOGIN_REMOTE_USER, ADD_PRODUCT_TO_CART_REMOTE, GET_CART_USER_REMOTE, GET_CATEGORY_REMOTE } from "../cons/actions-type";
 
 export function loginRemoteUser(payload){
     return {type:LOGIN_REMOTE_USER, payload};
@@ -14,4 +14,8 @@ export function addProductToShoppingCartRemote(payload){
 
 export function getUsersShoppingCarts(payload){
     return {type: GET_CART_USER_REMOTE, payload};
+}
+
+export function getCategoriesRemote(payload){
+    return {type: GET_CATEGORY_REMOTE, payload};
 }

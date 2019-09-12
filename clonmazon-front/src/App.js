@@ -3,7 +3,8 @@ import {Footer} from "react-materialize"
 import NavigationBar from "./components/navbar";
 import ProductList from "./components/productlist";
 import ProductDetail from "./components/productdetail";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import ShoppingCartDetails from "./components/shoppingcartdetails";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
 
 
@@ -23,6 +24,7 @@ function App() {
         
         <Route path="/" exact component={productList} />
         <Route path="/product/:id" component={productDetails} />
+        <Route path="/shoppingdetails" component={ShoppingCartDetails}></Route>
         <Footer
           copyrights="Clonmazon 2019 - Cartagena de indias"
         ></Footer>
