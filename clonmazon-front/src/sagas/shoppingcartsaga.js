@@ -12,8 +12,7 @@ export default function* watcherShoppingCartSaga() {
 }
 
 function* workerAddShoppingSaga(action) {
-    try {
-        console.log(action.payload);        
+    try {  
         yield put({type: ADD_PRODUCT_TO_CART_START})
         const payload = yield call(addUpdateShopping,action.payload);        
         yield put({ type: ADD_PRODUCT_TO_CART_SUCESS, payload });
@@ -24,7 +23,7 @@ function* workerAddShoppingSaga(action) {
 
   function* workerGetShoppingSaga(action) {
     try {
-        console.log(action.payload);        
+        console.log(action);        
         yield put({type: GET_CART_USER_START})
         const payload = yield call(getUsersShopping,action.payload);
         console.log(payload);
@@ -35,6 +34,7 @@ function* workerAddShoppingSaga(action) {
   }
 
 function getUsersShopping(payload){
+    console.log(payload)
     return axios.get("http://localhost:3001/shopping/",{params:payload})
     .then(function(res){
       return res.data;

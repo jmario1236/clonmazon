@@ -14,7 +14,7 @@ class ShoppingCartDetails extends React.Component{
 
     componentDidMount(){
         if(this.props.user.user){
-            this.props.getUsersShoppingCarts({_id: this.props.user.user._id});
+            this.props.getUsersShoppingCarts({userid: this.props.user.user._id});
         }
             
     }
@@ -53,7 +53,7 @@ class ShoppingCartDetails extends React.Component{
                     </tr>
                 </thead>
                 <tbody>
-                    {   !shoppingCartSession.products || shoppingCartSession.products.length === 0?<tr><td colSpan={6}>Empty Shopping cart!</td></tr>:
+                    {   !shoppingCartSession || !shoppingCartSession.products || shoppingCartSession.products.length === 0?<tr><td colSpan={6}>Empty Shopping cart!</td></tr>:
                         shoppingCartSession.products.map(productItem => 
                     (
                         <tr>

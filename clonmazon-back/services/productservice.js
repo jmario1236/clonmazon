@@ -3,7 +3,7 @@ const Product = require("../models/product");
 const getProducts = async (filter) => {
     try{
         let products = await Product.find(filter.name)
-            .populate({path:'categories',match:{$or:filter.categories}});        
+            .populate({path:'categories'});      
         return products;
     }catch(err){
         throw err;

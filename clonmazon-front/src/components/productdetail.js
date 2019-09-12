@@ -2,6 +2,7 @@ import React from "react";
 import {Icon, Card, Button, Row, Col, Chip, Preloader, Select, } from "react-materialize";
 import { getRemoteProducts, addProductToShoppingCartRemote } from "../actions/index";
 import { connect } from "react-redux";
+import { withRouter, Link } from "react-router-dom";
 
 class ProductDetail extends React.Component{  
 
@@ -34,7 +35,11 @@ class ProductDetail extends React.Component{
 
     agregateProductQuantity(productsStore, newAdd){
         if(!productsStore || productsStore.length === 0){
-            return [];
+            return [].concat(newAdd);
+        }
+        let find = productsStore.find(item => item.product._id === newAdd[0].product._id);
+        if(!find){
+            return productsStore.concat(newAdd);
         }
         return productsStore.map(item => item.product._id === newAdd[0].product._id?{...item,quantity:item.quantity+=newAdd[0].quantity}:item);       
     }
@@ -48,7 +53,7 @@ class ProductDetail extends React.Component{
             window.M.toast({html:'Please choose the quantity to buy!'});
             return;
         }
-        const cartstore = this.props.shopping.shoppingCartSession;
+        const cartstore = !this.props.shopping.shoppingCartSession?{}:this.props.shopping.shoppingCartSession;
         const productToAdd = [{quantity:this.state.quantity, product:{_id:this.props.products.products[0]._id}}];
         const cart = {  ...cartstore, 
                         user:this.props.user.user.user,
@@ -114,7 +119,7 @@ class ProductDetail extends React.Component{
                             <span>Categories: </span>
                         </Col>
                         <Col s={6} className="text-justify">
-                            {products.products[0].categories.map(category => <Chip key={category._id}>{category.name}</Chip>)}
+                            {products.products[0].categories.map(category => <Link to={`/category/${category._id}`}><Chip key={category._id}>{category.name}</Chip></Link>)}
                         </Col>
                         
                     </Row>
@@ -133,4 +138,4 @@ function mapStateToProps(state) {
     };
   }
 
-export default connect(mapStateToProps,{getRemoteProducts, addProductToShoppingCartRemote})(ProductDetail);
+export default withRouter(connect(mapStateToProps,{getRemoteProducts, addProductToShoppingCartRemote})(ProductDetail));

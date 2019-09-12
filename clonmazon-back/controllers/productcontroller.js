@@ -26,10 +26,9 @@ const getProduct = async(req,res) => {
         if(_id){filter.name = {_id:_id}}
         if(name){filter.name = {name:new RegExp(req.query.name, "i")}}
         if(categoriesq){
-            filter.categories = Array.isArray(categoriesq)?req.query.categories.map(function(id){
-                return {_id:id}
-            }):[{_id:categoriesq}];
+            filter.name = {categories:[{_id:categoriesq}]};
         }
+        console.log(filter);
         const products = await productService.getProducts(filter);
         res.status(200).send(products);
     }catch(err){

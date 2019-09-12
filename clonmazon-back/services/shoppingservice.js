@@ -16,14 +16,20 @@ const saveShoppingCart = async (cart) =>{
 
 const updateCart = async(cart_p) => {
     try{
+        console.log("------- update")
+        console.log(cart_p);
         let cart = await ShoppingCart.findOne({_id:cart_p._id});
+        console.log("------- get find")
+        console.log(cart);
         if(!cart){
-            cart = saveShoppingCart(cart_p);
+            cart = await saveShoppingCart(cart_p);
         }else{
             cart.products = cart_p.products;
             cart = await cart.save()
         }        
-        cart = await cart.populate('products.product').execPopulate()
+        cart = await cart.populate('products.product').execPopulate();
+        console.log("------- update get new cart")
+        console.log(cart);
         return cart;
     }catch(err){
         throw err;
@@ -33,7 +39,10 @@ const updateCart = async(cart_p) => {
 
 const getShoppingTemp = async (filter) =>{
     try{
-        let cart = await ShoppingCart.find().populate({path:'user',match:filter.userid}).populate('products.product');
+        console.log("-------> ")
+        console.log(filter);
+        let cart = await ShoppingCart.find({user:filter}).populate({path:'user'}).populate('products.product');
+        console.log("-------> "+cart);
         return cart;
     }catch(err){
         throw err;

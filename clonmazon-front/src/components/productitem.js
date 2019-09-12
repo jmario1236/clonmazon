@@ -6,12 +6,10 @@ class ProductItem extends React.Component{
     render(){
         const routerToProduct = `/product/${this.props.product._id}`
         const imagenProduct = ( <Link to={routerToProduct}><img src={this.props.product.url_image} alt={this.props.product.name} height="250px"></img></Link>)
-        const addToCartButton = (<Button icon={<Icon left> add_shopping_cart</Icon>}>
-                                    Add to cart                                    
+        const addToCartButton = (<Button tooltip="Add To Shopping Cart" icon={<Icon> add_shopping_cart</Icon>}>                               
                                 </Button>)   
         const viewDetails = ( <Link to={routerToProduct}>
-                                    <Button icon={<Icon left>chevron_right</Icon>}>
-                                        Details                                
+                                    <Button className="Button-Login" tooltip="Details" icon={<Icon>chevron_right</Icon>}>                              
                                     </Button>
                                 </Link>);        
         return(          
