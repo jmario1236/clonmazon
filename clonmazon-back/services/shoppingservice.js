@@ -57,16 +57,19 @@ const totalToPay = (products) => {
     return total;
 }
 
-const payShoppingCart = async (cart) => {
+const payShoppingCart = async (cart_p) => {
     try{
-        let cart = await ShoppingCart.findById(cart._id);
+        let cart = await ShoppingCart.findById(cart_p._id);
         if(!cart){
-            cart = await saveShoppingCart(cart);
+            cart = await saveShoppingCart(cart_p);
         }
-        cart.date_purchase = Date.now();
-        cart.total = totalToPay(cart.products);
-        productService.updateStock(cart.products);
-        cart.save();
+        if(productService.checkStock(cart.products)){
+            cart.date_purchase = Date.now();
+            //cart.total = totalToPay(cart.products);
+            productService.updateStock(cart.products);
+            cart = await cart.save();
+        }        
+        return cart;
     }catch(err){
         throw err;
     }

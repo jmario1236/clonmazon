@@ -23,7 +23,7 @@ class ProductDetail extends React.Component{
     getListUnit(){        
         let listUnit = [];
         if(!this.props.products.products[0]){return []}
-        for(let x = 0; x < this.props.products.products[0].stock; x++){
+        for(let x = 1; x <= this.props.products.products[0].stock; x++){
             listUnit.push(x);
         }
         return listUnit;
@@ -65,6 +65,7 @@ class ProductDetail extends React.Component{
     }
 
     render(){
+        const { products }  = this.props;
         const addToCartButton = (<Button onClick={this.AddToCartonClick}>
                                     Add to cart
                                     <Icon left>
@@ -78,12 +79,11 @@ class ProductDetail extends React.Component{
                                 </option>
                                 {this.getListUnit().map(unit => <option value={unit}>{unit}</option>)}                               
                             </Select>)
-        const div = (<div className="details-button">
+        const div = (products.products[0] && products.products[0].stock<1?<h3>SOLD OUT!</h3>:<div className="details-button">
                      {quantity}
                         {addToCartButton}
                         
-                    </div>)
-        const { products }  = this.props;
+                    </div>)        
         return(
                 products.loading || !products.products[0]?<Preloader size="big" />:
                 <Card title={products.products[0].name} className="App" actions={[div]}>
@@ -113,7 +113,7 @@ class ProductDetail extends React.Component{
                             <span>Units available: </span>
                         </Col>
                         <Col s={6} className="text-justify">
-                            <span>{products.products[0].stock}</span>
+                            <span>{products.products[0].stock>0?products.products[0].stock:0}</span>
                         </Col>
                         <Col s={6} className="text-right">
                             <span>Categories: </span>

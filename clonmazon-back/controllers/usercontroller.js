@@ -1,5 +1,6 @@
 const userservice = require("../services/userservice");
 const constants = require("../cons/cons");
+const helper = require('../helper/helper');
 
 const createUser = async (req, res) => {
     try{
@@ -16,9 +17,9 @@ const createUser = async (req, res) => {
         res.status(200).send(login);
     }catch(err){
         if(err.message === constants.EMAIL_EXIST){
-            res.status(500).send(constants.EMAIL_EXIST);
+            res.status(500).send(helper(constants.EMAIL_EXIST));
         }else{
-            res.status(500).send(err.message);
+            res.status(500).send(helper(err.message));
         }
     }
 }
@@ -32,7 +33,7 @@ const login = async (req, res) => {
         const login = await userservice.login(user);
         res.status(200).send(login);
     }catch(err){
-        res.status(500).send(err.message);
+        res.status(500).send(helper(err.message));
     }   
 }
 

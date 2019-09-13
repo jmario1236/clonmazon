@@ -17,7 +17,7 @@ function* workerLoginUserSaga(action){
         const payload = yield call(login,action.payload)
         yield put({type: GET_CART_USER_REMOTE, payload:{userid:payload.user._id}});
         yield put({type: LOGIN_USER_SUCCESS, payload});
-    }catch (e) {
+    }catch (e) {        
         yield put({ type: LOGIN_USER_ERROR, payload: e });
     }
 }
@@ -37,6 +37,8 @@ function register(user){
     return axios.post(REGISTER_USER_URL,user,header)
     .then(function(res){
         return res.data;
+    }).catch((err)=>{
+        throw err.response.data;
     })
 }
 
@@ -45,6 +47,8 @@ function login(user){
     return axios.post(LOGIN_USER_URL,user,header)
     .then(function(res){
         return res.data;
+    }).catch((err) => {
+        throw err.response.data;
     })
 }
 

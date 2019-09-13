@@ -1,4 +1,5 @@
 const productService = require('../services/productservice');
+const helper = require('../helper/helper');
 
 const addProduct = async (req, res) =>{
     try{
@@ -13,7 +14,7 @@ const addProduct = async (req, res) =>{
         const newproduct = await productService.addProduct(product);
         res.status(200).send(newproduct);
     }catch(err){
-        res.status(500).send(err.message);
+        res.status(500).send(helper(err.message));
     }
 }
 
@@ -32,7 +33,7 @@ const getProduct = async(req,res) => {
         const products = await productService.getProducts(filter);
         res.status(200).send(products);
     }catch(err){
-        res.status(500).send(err.message);
+        res.status(500).send(helper(err.message));
     }
 }
 
@@ -50,7 +51,7 @@ const updateProduct = async (req,res) => {
         const newproduct = await productService.updateProductInfo(product);
         res.status(200).send(newproduct);
     }catch(err){
-        res.status(500).send(err.message);
+        res.status(500).send(helper(err.message));
     }
 }
 

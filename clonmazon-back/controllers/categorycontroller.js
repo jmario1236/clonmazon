@@ -1,3 +1,4 @@
+const helper = require('../helper/helper');
 const categoryService = require('../services/categoryservice');
 
 const addCategory = async (req,res) => {
@@ -8,7 +9,7 @@ const addCategory = async (req,res) => {
         const newcategory = await categoryService.addCategory(category);
         res.status(200).send(newcategory);
     }catch(err){
-        res.status(500).send(err.message);
+        res.status(500).send(helper(err.message));
     }
 }
 
@@ -21,7 +22,7 @@ const getCategory = async (req,res) => {
         const categories = await categoryService.getCategories(filter);
         res.status(200).send(categories);
     }catch(err){
-        res.status(500).send(err.message);
+        res.status(500).send(helper(err.message));
     }
 }
 

@@ -16,15 +16,21 @@ class ProductList extends React.Component{
     componentDidMount(){
         if(this.props.idcategory){
             this.props.getRemoteProducts({categories:this.props.idcategory});
+        }else if(this.props.search){
+            this.props.getRemoteProducts({name:this.props.search});
         }else{
             this.props.getRemoteProducts({});
-        }        
+        }    
     }
 
     componentDidUpdate(prevProps){
         if(prevProps.idcategory !== this.props.idcategory){
             prevProps.getRemoteProducts({categories:this.props.idcategory});
         }
+        if(prevProps.search !== this.props.search){
+            prevProps.getRemoteProducts({name:this.props.search});
+        }
+
     }
     
     render(){
@@ -32,7 +38,7 @@ class ProductList extends React.Component{
         console.log(products)
         return(products.loading?<Preloader size="big" />:
             <Row>               
-               {products.products.length===0?<Col s={12} m={12} l={12}><h4>Products not found for this category.</h4></Col>:
+               {products.products.length===0?<Col s={12} m={12} l={12}><h4>Products not found!.</h4></Col>:
                products.products.map(product =>  
                 (<Col s={12} m={6} l={3} xl={3} key={product._id}>
                     <ProductItem key={product._id} product={product}></ProductItem>                                                                

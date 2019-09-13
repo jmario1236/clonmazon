@@ -17,6 +17,7 @@ class RegisterUser extends React.Component{
         };
         this.singupOnClick = this.singupOnClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.validateField = this.validateField.bind(this);
     }
 
     handleChange(e) {
@@ -24,14 +25,27 @@ class RegisterUser extends React.Component{
         this.setState({ user:{...this.state.user, [name]: value} });
     }   
 
-    singupOnClick(){
-        console.log(this.state.user);
-        const newuser = {
-            fullname: this.state.user.fullname,
-            email: this.state.user.email,
-            password: this.state.user.password
+    validateField(){
+        if(this.state.user.fullname.trim() === '' || this.state.user.email.trim() === '' || this.state.user.password.trim() === '' || this.state.user.passwordagain.trim() === ''){
+            window.M.toast({html:'Please fill in all fields!'});
+            return false;
         }
-        this.props.registerRemoteUser(newuser);
+        if(this.state.user.password !== this.state.user.passwordagain){
+            window.M.toast({html:'Password does not match!'});
+            return false;
+        }
+        return true;
+    }
+
+    singupOnClick(){
+        if(this.validateField()){
+            const newuser = {
+                fullname: this.state.user.fullname,
+                email: this.state.user.email,
+                password: this.state.user.password
+            }
+            this.props.registerRemoteUser(newuser);
+        }        
     }
 
     render(){

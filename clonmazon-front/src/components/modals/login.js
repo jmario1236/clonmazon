@@ -15,6 +15,7 @@ class LoginForm extends React.Component{
         };
         this.loginOnClick = this.loginOnClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.validateField = this.validateField.bind(this);
     }
 
     handleChange(e) {
@@ -24,8 +25,19 @@ class LoginForm extends React.Component{
 
     loginOnClick(){
         console.log(this.state.user);
-        this.props.loginRemoteUser(this.state.user);
+        if(this.validateField()){
+            this.props.loginRemoteUser(this.state.user);
+        }        
     }
+
+    validateField(){
+        if( this.state.user.email.trim() === '' || this.state.user.password.trim() === ''){
+            window.M.toast({html:'Please fill in all fields!'});
+            return false;
+        }       
+        return true;
+    }
+
 
     render(){
         const login = (<Button className="Button-Login" onClick={this.loginOnClick}>

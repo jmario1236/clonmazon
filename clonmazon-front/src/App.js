@@ -16,6 +16,10 @@ function productListCategory({ match }){
   return(<ProductList idcategory={match.params.idcategory}></ProductList>);
 }
 
+function productListSearch({ match }){
+  return(<ProductList search={match.params.search}></ProductList>);
+}
+
 function productDetails({ match }){
   return(<ProductDetail productid={match.params.id}></ProductDetail>);
 }
@@ -27,6 +31,7 @@ function App() {
       <div className="App">
         
         <Route path="/" exact component={productList} />
+        <Route path="/search/:search" component={productListSearch}></Route>
         <Route path="/category/:idcategory" component={productListCategory} />
         <Route path="/product/:id" component={productDetails} />
         <Route path="/shoppingdetails" component={ShoppingCartDetails}></Route>

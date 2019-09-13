@@ -31,13 +31,24 @@ const deleteProduct = async (product) => {
     return Product.findByIdAndRemove(product._id);
 }
 
-const updateStock = async(products) => {
+const checkStock = async(products) => {
     try{
         products.forEach(async (productitem) => {
             let product = await Product.findById(productitem.product._id)
-            if(!product){}
-            if(product.stock === 0){}
-            if(product.stock < productitem.quantity){}
+            if(!product){throw "Product not exist!"}
+            if(product.stock === 0){throw `The product ${product.name} not availiable!`}
+            if(product.stock < productitem.quantity){ throw `The product ${product.name} exceeds the stock, availiable: ${product.stock}` }            
+        });
+        return true;
+    }catch(err){
+        throw err;
+    }
+}
+
+const updateStock = async(products) => {
+    try{
+        products.forEach(async (productitem) => {
+            let product = await Product.findById(productitem.product._id)            
             product.stock = product.stock - productitem.quantity;
             product.save();
         });
@@ -62,4 +73,4 @@ const updateProductInfo = async (product) => {
     } 
 }
 
-module.exports = {getProducts,addProduct,deleteProduct,updateStock,updateProductInfo}
+module.exports = {getProducts,addProduct,deleteProduct,updateStock,updateProductInfo, checkStock}

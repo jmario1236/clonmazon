@@ -11,6 +11,13 @@
   text-align: justify;
 }
 
+.input-search-product{
+    background-color: whitesmoke!important;
+    border-radius: 16px!important;
+    width: 250px!important;
+    padding-left: 5px!important;
+}
+
 .count_item{
   position: relative;
 }
