@@ -33,13 +33,14 @@ const deleteProduct = async (product) => {
 
 const checkStock = async(products) => {
     try{
+        let error = true;
         products.forEach(async (productitem) => {
             let product = await Product.findById(productitem.product._id)
-            if(!product){throw "Product not exist!"}
-            if(product.stock === 0){throw `The product ${product.name} not availiable!`}
-            if(product.stock < productitem.quantity){ throw `The product ${product.name} exceeds the stock, availiable: ${product.stock}` }            
+            if(!product){error = {error: "Product not exist!"}}
+            if(product.stock === 0){error = {error: `The product ${product.name} not availiable!`}}
+            if(product.stock < productitem.quantity){ error = {error: `The product ${product.name} exceeds the stock, availiable: ${product.stock}` }     }       
         });
-        return true;
+        return error;
     }catch(err){
         throw err;
     }

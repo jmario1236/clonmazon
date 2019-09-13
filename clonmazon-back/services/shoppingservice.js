@@ -59,15 +59,23 @@ const totalToPay = (products) => {
 
 const payShoppingCart = async (cart_p) => {
     try{
-        let cart = await ShoppingCart.findById(cart_p._id);
+        console.log("-------> start pay")
+        console.log(cart_p)
+        let cart = await ShoppingCart.findById(cart_p._id)      
         if(!cart){
             cart = await saveShoppingCart(cart_p);
         }
-        if(productService.checkStock(cart.products)){
+        cart = await cart.populate('products.product').execPopulate();  
+        console.log("-------> start found")
+        console.log(cart.products.product)
+        let result = await productService.checkStock(cart.products);
+        if(result === true && !result.error){
             cart.date_purchase = Date.now();
-            //cart.total = totalToPay(cart.products);
+            cart.total = totalToPay(cart.products);
             productService.updateStock(cart.products);
             cart = await cart.save();
+        }else{
+            throw result.error;
         }        
         return cart;
     }catch(err){

@@ -85,7 +85,7 @@ class ProductDetail extends React.Component{
                         
                     </div>)        
         return(
-                products.loading || !products.products[0]?<Preloader size="big" />:
+                products.loading ?<Preloader size="big" />:!products.products[0] || products.products.length === 0?<h4>Products not found!.</h4>:
                 <Card title={products.products[0].name} className="App" actions={[div]}>
                     <Row >
                         <Col s={12}>
