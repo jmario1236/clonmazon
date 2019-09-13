@@ -26,20 +26,20 @@ Clonmazon front end posee tecnologias reactJS, Redux, Redux-Saga y materializer
 
 ScreenShoot:
 
-![alt text](https://imgur.com/enxhPgt)
+![alt text](https://i.imgur.com/enxhPgt.png)
 
-![alt text](https://imgur.com/VMGixDI)
+![alt text](https://i.imgur.com/VMGixDI.png)
 
-![alt text](https://imgur.com/R0n7zhf)
+![alt text](https://i.imgur.com/R0n7zhf.png)
 
-![alt text](https://imgur.com/E7CMBGZ)
+![alt text](https://i.imgur.com/E7CMBGZ.png)
 
-![alt text](https://imgur.com/3QTFa1Z)
+![alt text](https://i.imgur.com/3QTFa1Z.png)
 
-![alt text](https://imgur.com/Aq993jg)
+![alt text](https://i.imgur.com/Aq993jg.png)
 
-![alt text](https://imgur.com/2Kui2cw)
+![alt text](https://i.imgur.com/2Kui2cw.png)
 
-![alt text](https://imgur.com/d6rxP7E)
+![alt text](https://i.imgur.com/d6rxP7E.png)
 
-![alt text](https://imgur.com/hECYrpb)
+![alt text](https://i.imgur.com/hECYrpb.png)
