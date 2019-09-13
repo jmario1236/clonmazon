@@ -57,6 +57,23 @@ const totalToPay = (products) => {
     return total;
 }
 
+const checkStock = (products) => {
+    try{
+        let error = true;
+        products.forEach((productitem) => {
+            let product = productitem.product;
+            if(!product){error = {error: "Product not exist!"}}
+            if(product.stock === 0){error = {error: `The product ${product.name} not availiable!`}}
+            if(product.stock < productitem.quantity){ error = {error: `The product ${product.name} exceeds the stock, availiable: ${product.stock}` }     }       
+        });
+        console.log("--- check stock ---")
+        console.log(error)
+        return error;
+    }catch(err){
+        throw err;
+    }
+}
+
 const payShoppingCart = async (cart_p) => {
     try{
         console.log("-------> start pay")
@@ -67,16 +84,18 @@ const payShoppingCart = async (cart_p) => {
         }
         cart = await cart.populate('products.product').execPopulate();  
         console.log("-------> start found")
-        console.log(cart.products.product)
-        let result = await productService.checkStock(cart.products);
-        if(result === true && !result.error){
-            cart.date_purchase = Date.now();
-            cart.total = totalToPay(cart.products);
-            productService.updateStock(cart.products);
-            cart = await cart.save();
-        }else{
-            throw result.error;
-        }        
+        console.log(cart.products[0].product)
+        cart.products.forEach((productitem) => {
+            let productfromitem = productitem.product;
+            console.log(productfromitem)
+            if(!productfromitem){throw Error("Product not exist!")}
+            if(productfromitem.stock === 0){throw Error(`The product ${productfromitem.name} not availiable!`)}
+            if(productfromitem.stock < productitem.quantity){ throw Error(`The product ${productfromitem.name} exceeds the stock, availiable: ${productfromitem.stock}`) }       
+        });        
+        cart.date_purchase = Date.now();
+        cart.total = totalToPay(cart.products);
+        productService.updateStock(cart.products);
+        cart = await cart.save();            
         return cart;
     }catch(err){
         throw err;
