@@ -5,6 +5,7 @@ const configuration = require("./configuration/configuration");
 const bodyparser = require('body-parser');
 var cors = require('cors')
 
+// import router endpoints
 const user = require('./routers/userrouter');
 const product = require('./routers/productrouter');
 const category = require('./routers/categoryrouter');
@@ -20,7 +21,7 @@ mongoose.connect(configuration.DBCONECTION,{useNewUrlParser: true})
         console.log(err);
         process.exit();
     });
-
+// Load middleware and endpoint
 app.use(cors())
 app.use(bodyparser.json());
 app.use('/user',user);
@@ -30,9 +31,6 @@ app.use('/shopping',shopping);
 
 
 app.listen(3001, () =>{
-    console.log("Server listening on port 3000");
+    console.log("Server listening on port 3001");
 });
 
-app.get("/", (req,res) => {
-    res.send("Hola!");
-});
