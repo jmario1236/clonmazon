@@ -16,9 +16,12 @@ Backend:
 1. cd clomazon-back/
 2. npm start
 
+Los endpoint estan apuntando al puerto 3001
+
 FrontEnd:
 1. cd clonmazon-front/
 2. npm start
+3. Abrir el navegador con http://localhost:3000/
 
 Clonmazon backend esta escrito en javascript: NodeJS, Express, MongoDB(Usando cloud de Mongo Atlas).
 
